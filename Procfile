@@ -1,0 +1,1 @@
+web: gunicorn djppproject.wsgi --log-file -
