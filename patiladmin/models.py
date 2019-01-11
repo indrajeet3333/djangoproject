@@ -2,14 +2,14 @@ from django.db import models
 from django.utils import timezone
 # Create your models here.
 class client(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
     contact = models.BigIntegerField()
-    email = models.CharField(max_length=50)
-    pVisit = models.CharField(max_length=50)
-    address = models.CharField(max_length=100)
-    city = models.CharField(max_length=20)
-    state = models.CharField(max_length=20)
+    email = models.CharField(max_length=255)
+    pVisit = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=255)
     zipcode = models.BigIntegerField()
     dateofvisit = models.DateField(default=timezone.now)
 
