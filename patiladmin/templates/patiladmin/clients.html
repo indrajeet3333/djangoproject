@@ -37,11 +37,36 @@
             <div class="card-body">
                 <h5 class="card-title">Details</h5>
                 <p class="card-text">Contact: {{client.contact}}&nbsp;&nbsp;|&nbsp;&nbsp;Email: {{client.email}}</p>
-                <a href="#" class="btn btn-primary">Schedule Appointment</a>
             </div>
     </div>
     {% endfor %}
-    
+<div class="row">
+    <div class="col-md-12">
+        <form action="/schedule" method="POST">
+            {% csrf_token %}
+<div class="row">
+            <div class="col-md-4 mb-3">
+            <label for="country">Client</label>
+            <select name="test" style="margin-bottom : 2rem;" class="custom-select d-block w-100" id="country" required>
+                <option value="">Choose...</option>
+                {% for client in clients %}
+                <option>{{client.first_name}}&nbsp;{{client.last_name}}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="country">Date</label>
+                <input type="text" class="form-control" name="dateA" placeholder="" value="" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="country">Time</label>
+                <input type="text" class="form-control" name="timeA" placeholder="" value="" required>
+            </div>
+            </div>
+<button type=submit class="btn btn-primary">Schedule an appointment</a>
+        </form>
+</div>
+</div>
     <footer class="pt-5 text-muted text-center text-small">
         <p class="mb-1">&copy; Patil Firms</p>
         <ul class="list-inline">
