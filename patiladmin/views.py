@@ -8,7 +8,7 @@ def schedule(request):
     firstname = nameofclient.split()[0]
     contact = client.objects.filter(first_name=firstname)[0].contact
     print(contact)
-    msg = "Hello " + firstname + ". Your appointment is now scheduled for " + \
+    msg = "Hello " + firstname + ". Your appointment with your lawyer is now scheduled for " + \
         request.POST["dateA"] + " at " + request.POST["timeA"]
     r = requests.get("http://api.msg91.com/api/sendhttp.php?country=91&sender=TESTIN&route=4&mobiles="+str(contact)+"&authkey=256187AKWh6ZGX9j5c385774&message=" + msg)
     return HttpResponse("Appointment Scheduled for " + firstname)
