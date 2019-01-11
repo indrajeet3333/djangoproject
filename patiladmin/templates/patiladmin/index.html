@@ -8,20 +8,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
     body{
-        background-color: #777777;
-        color: rgb(253, 253, 253);
+        background-color: #10001F;
+        color: rgb(245, 245, 245);
     }
 
     .lh-condensed { line-height: 1.25; }
+    input[type="text"], input[type="tel"],input[type="email"],textarea {
 
+    background-color : rgb(230, 230, 230);
+
+    }
     </style>
     <title>Patil Firms</title>
 </head>
 <body>
+{% load static %}
 <div class="container">
     <div class="row">
         <div class="col-md-12 order-md-1">
             <div class="py-5 text-center">
+            <!--    <img class="d-block mx-auto mb-4" src="{% static 'appstatic/head.png' %}"
+                    alt="" width="244" height="202"> -->
                 <h1>Client Registration</h1>
                 <p class="lead"> </p>
             </div>
