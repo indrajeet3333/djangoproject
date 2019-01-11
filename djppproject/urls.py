@@ -16,7 +16,7 @@ Including another URLconf
 
 from django.urls import path, include
 from django.contrib import admin
-admin.site.site_header = 'Administration'
+admin.site.site_header = 'Admin Panel'
 
 admin.site.index_title = 'Manage Site'
 
