@@ -18,7 +18,7 @@ from django.urls import path, include
 from django.contrib import admin
 admin.site.site_header = 'Administration'
 
-admin.site.index_title = 'Test'
+admin.site.index_title = 'Manage Site'
 
 admin.site.site_title = 'Site Admin'
 
