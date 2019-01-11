@@ -11,6 +11,7 @@ class client(models.Model):
     city = models.CharField(max_length=20)
     state = models.CharField(max_length=20)
     zipcode = models.BigIntegerField()
+    dateofvisit = models.DateField()
     
     def __str__(self):
         return (self.first_name + " " + self.last_name)
