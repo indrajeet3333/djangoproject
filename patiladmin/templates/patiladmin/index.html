@@ -30,7 +30,6 @@
             <!--    <img class="d-block mx-auto mb-4" src="{% static 'appstatic/head.png' %}"
                     alt="" width="244" height="202"> -->
                 <h1>Client Registration</h1>
-                <p class="lead"> </p>
             </div>
             <h4 class="mb-3">Client Details</h4>
             <form class="needs-validation" novalidate>
@@ -60,11 +59,16 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="email">Email </label>
+                    <label for="email">Email</label>
                     <input type="email" class="form-control" id="email" placeholder="you@example.com">
                     <div class="invalid-feedback">
                         Please enter a valid email address for shipping updates.
                     </div>
+                </div>
+
+                <div class="mb-3">
+                    <label>Purpose of Visit</label>
+                    <input type="text" class="form-control" id="pVisit" placeholder="" value="" required>
                 </div>
 
                 <div class="mb-3">
@@ -103,8 +107,8 @@
         </div>
     </div>
 
-    <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">&copy; 2017-2018 Company Name</p>
+    <footer class="pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; Patil Firms</p>
         <ul class="list-inline">
             <li class="list-inline-item"><a href="/admin" style="color:ghostwhite">Admin Login</a></li>
         </ul>
