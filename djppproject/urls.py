@@ -25,7 +25,8 @@ admin.site.site_title = 'Site Admin'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('patiladmin.urls')),
-    path('submit/', include('patiladmin.urls'))
+    path('submit/', include('patiladmin.urls')),
+    path('clients/', include('patiladmin.urls'))
 ]
 
 

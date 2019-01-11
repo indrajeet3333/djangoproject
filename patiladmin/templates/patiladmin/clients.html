@@ -29,14 +29,24 @@
     <div class="text-center" style="padding-top: 2rem">
     <!--    <img class="d-block mx-auto mb-4" src="{% static 'appstatic/head.png' %}"
             alt="" width="244" height="202"> -->
-        <h1>Client Details Registered!</h1>
+        <h1>Client List</h1>
     </div>
+    {% for client in clients %}
+    <div style="background-color: rgb(230, 230, 230);color:#10001F;margin: 2rem 0.2rem" class="card">
+        <h3 class="card-header">{{client.first_name}}&nbsp;{{client.last_name}}</h5>
+            <div class="card-body">
+                <h5 class="card-title">Details</h5>
+                <p class="card-text">Contact: {{client.contact}}&nbsp;&nbsp;|&nbsp;&nbsp;Email: {{client.email}}</p>
+                <a href="#" class="btn btn-primary">Schedule Appointment</a>
+            </div>
+    </div>
+    {% endfor %}
     
     <footer class="pt-5 text-muted text-center text-small">
         <p class="mb-1">&copy; Patil Firms</p>
         <ul class="list-inline">
-            <li class="list-inline-item"><a href="/" style="color:ghostwhite">Submit Another</a></li>
-            <li class="list-inline-item"><a href="/clients" style="color:ghostwhite">View Clients</a></li>
+            <li class="list-inline-item"><a href="/admin" style="color:ghostwhite">Admin Login</a></li>
+            <li class="list-inline-item"><a href="/" style="color:ghostwhite">Submit Client</a></li>
         </ul>
     </footer>
 </div>

@@ -1,6 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import client
+def clientlist(request):
+    clist = client.objects.all()
+    return render(request, 'patiladmin/clients.html', {'clients': clist})
 def index(request):
     return render(request,'patiladmin/index.html')
 def submit(request):
