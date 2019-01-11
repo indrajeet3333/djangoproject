@@ -19,7 +19,8 @@ from django.contrib import admin
 admin.site.site_header = 'Administration'
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('patiladmin.urls'))
+    path('', include('patiladmin.urls')),
+    path('submit/', include('patiladmin.urls'))
 ]
 
 
