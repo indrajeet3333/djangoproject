@@ -7,7 +7,7 @@ class client(models.Model):
     contact = models.BigIntegerField()
     email = models.CharField(max_length=50)
     pVisit = models.CharField(max_length=50)
-    address = models.CharField(max_length=50)
+    address = models.CharField(max_length=100)
     city = models.CharField(max_length=20)
     state = models.CharField(max_length=20)
     zipcode = models.BigIntegerField()
