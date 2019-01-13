@@ -15,5 +15,17 @@ class client(models.Model):
 
     def __str__(self):
         return (self.first_name + " " + self.last_name)
+
+
+class appointments(models.Model):
+    person = models.CharField(max_length=255)
+    dtOfApmt = models.CharField(max_length=255)
+    tmOfApmt = models.CharField(max_length=255)
+    schOn = models.DateTimeField(default=timezone.now, blank=True)
+    class Meta:
+        verbose_name_plural = "Appointments"
+    def __str__(self):
+        return (self.person)
     
+
     

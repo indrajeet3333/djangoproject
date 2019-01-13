@@ -27,7 +27,8 @@ urlpatterns = [
     path('', include('patiladmin.urls')),
     path('submit/', include('patiladmin.urls')),
     path('clients/', include('patiladmin.urls')),
-    path('schedule/', include('patiladmin.urls'))
+    path('schedule/', include('patiladmin.urls')),
+    path('appointments/', include('patiladmin.urls'))
 ]
 
 
