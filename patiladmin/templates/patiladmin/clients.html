@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
     crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="{% static 'appstatic/bootstrap-glyphicon.css' %}" type="text/css"> -->
+    <!-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-glyphicons.css" type="text/css"> -->
+    <link rel="stylesheet" href="{% static 'appstatic/bootstrap-datetimepicker.min.css' %}" type="text/css">
+
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
     body{
@@ -58,12 +62,19 @@
             </select>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="country">Date</label>
-                <input type="text" class="form-control" name="dateA" placeholder="" value="" required>
+                <label for="dtp_input1" class="control-label">Date & Time</label>
+                <div class="input-group date form_datetime" data-link-field="dtp_input1">
+                <input class="form-control" size="16" type="text" value="" id="dtp_input1" name="dateA" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                </div>
+               <!--  <input type="hidden" id="dtp_input1" value="" /><br /> -->
+                <!----<label for="country">Date</label>
+                <input type="text" class="form-control" name="dateA" placeholder="" value="" required> -->
             </div>
             <div class="col-md-4 mb-3">
-                <label for="country">Time</label>
-                <input type="text" class="form-control" name="timeA" placeholder="" value="" required>
+               <!--  <label for="country">Time</label>
+                <input type="text" class="form-control" name="timeA" placeholder="" value="" required> -->
             </div>
             </div>
 <button type=submit class="btn btn-primary">Schedule an appointment</a>
@@ -79,5 +90,21 @@
     </footer>
 </div>
 
+<script type="text/javascript" src="{% static 'appstatic/jquery-1.8.3.min.js' %}" charset="UTF-8"></script>
+<script type="text/javascript" src="{% static 'appstatic/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'appstatic/bootstrap-datetimepicker.js' %}" charset="UTF-8"></script>
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        //language:  'fr',
+        format : 'dd/MM/yyyy hh:mm a',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1
+    });
+</script>
 </body>
 </html>

@@ -7,9 +7,25 @@ def schedule(request):
     nameofclient = request.POST["test"]
     firstname = nameofclient.split()[0]
     contact = client.objects.filter(first_name=firstname)[0].contact
-    print(contact)
+    dateTimeStr = request.POST["dateA"]
+    months = ("Jan ", "Feb ", "Mar ", "Apr ", "May ", "Jun ", "Jul ", "Aug ", "Sep ", "Oct ", "Nov ", "Dec ")
+    yr = dateTimeStr[0:4]
+    mm = int(dateTimeStr[5:7])
+    month = months[(mm-1)]
+    day = dateTimeStr[8:11]
+    date = day + month + yr
+    hh = int(dateTimeStr[11:13])
+    mm = dateTimeStr[14:16]
+    if (hh > 12):
+        Hr = (hh-12)
+        fm = " PM"
+    else:
+        Hr = hh
+        fm = " AM"
+    time = str(Hr) + ":" + mm + fm
+    print(date + " " + time)
     msg = "Hello " + firstname + ". Your appointment with your lawyer is now scheduled for " + \
-        request.POST["dateA"] + " at " + request.POST["timeA"]
+        date + " at " + time
     r = requests.get("http://api.msg91.com/api/sendhttp.php?country=91&sender=TESTIN&route=4&mobiles="+str(contact)+"&authkey=256187AKWh6ZGX9j5c385774&message=" + msg)
     return HttpResponse("Appointment Scheduled for " + firstname)
 def clientlist(request):
