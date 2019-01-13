@@ -1,58 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <link rel="shortcut icon" type="image/png" href="{% static 'appstatic/head.png' %}" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-    crossorigin="anonymous">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <style>
-    body{
-        background-image: url("{% static 'appstatic/bg.jpg' %}");
-        background-color: #10001F;
-        background-size: cover;
-        background-position: top center;
-        color: rgb(245, 245, 245);
-    }
-
-    .lh-condensed { line-height: 1.25; }
-    input[type="text"], input[type="tel"],input[type="email"],textarea {
-
-    background-color : rgb(230, 230, 230);
-
-    }
-    </style>
-    <title>Patil Firms</title>
-</head>
-<body>
-
+{% extends 'patiladmin/baselayout.html' %}
+{% load static %}
+{% block content%}
 <div class="container">
-    <div class="text-center" style="padding-top: 2rem">
+    <div class="text-center" style="padding-top: 2rem;color: rgb(210,0,120)">
         <h1>Appointment History</h1>
     </div>
     {% for appointment in appointments %}
-    <div style="background-color: rgb(230, 230, 230);color:#10001F;margin: 2rem 0.2rem" class="card">
+    <div style="background-color: rgb(256, 256, 256);color: rgba(0,0,120,0.9);margin: 2rem 0.2rem;border-radius: 1.2rem;" class="card">
     <h3 class="card-header">Client: {{appointment.person}}</h5>
             <div class="card-body">
             <h5 class="card-title">Appointment Date: {{appointment.dtOfApmt}}&nbsp;&nbsp;|&nbsp;&nbsp;Appointment Time:
                 {{appointment.tmOfApmt}}</h5>
-            <p class="card-text">Appointment Scheduled on : {{appointment.schOn}}</p>
+            <p class="card-text" style="font-size: 1.1rem;">Appointment Scheduled on : {{appointment.schOn}}</p>
         </div>
     </div>
     {% endfor %}
-
-    <footer class="pt-5 text-muted text-center text-small">
-        <p class="mb-1" style="color:#000000">&copy; Patil Firms</p>
-        <ul class="list-inline">
-            <li class="list-inline-item"><a href="/admin" style="color:ghostwhite">Admin Login</a></li>
-            <li class="list-inline-item"><a href="/" style="color:ghostwhite">Submit Client</a></li>
-            <li class="list-inline-item"><a href="/clients" style="color:ghostwhite">View Clients</a></li>
-        </ul>
-    </footer>
 </div>
-
-
-</body>
-</html>
+{% endblock %}

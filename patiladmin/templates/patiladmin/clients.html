@@ -1,101 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <link rel="shortcut icon" type="image/png" href="{% static 'appstatic/head.png' %}" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-    crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'appstatic/bootstrap-datetimepicker.min.css' %}" type="text/css">
-
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <style>
-    body{
-        background-image: url("{% static 'appstatic/bg.jpg' %}");
-        background-color: #10001F;
-        background-size: cover;
-        background-position: top center;
-        color: rgb(245, 245, 245);
-    }
-
-    .lh-condensed { line-height: 1.25; }
-    input[type="text"], input[type="tel"],input[type="email"],textarea {
-
-    background-color : rgb(230, 230, 230);
-
-    }
-    </style>
-    <title>Patil Firms</title>
-</head>
-<body>
-
+{% extends 'patiladmin/baselayout.html' %}
+{% load static %}
+{% block content%}
 <div class="container">
-    <div class="text-center" style="padding-top: 2rem">
-    <!--    <img class="d-block mx-auto mb-4" src="{% static 'appstatic/head.png' %}"
-            alt="" width="244" height="202"> -->
+<div class="text-center" style="padding-top: 2rem;color: rgb(210,0,120)">
         <h1>Client List</h1>
     </div>
     {% for client in clients %}
-    <div style="background-color: rgb(230, 230, 230);color:#10001F;margin: 2rem 0.2rem" class="card">
+<div style="background-color: rgb(256, 256, 256);color: rgba(0,0,120,0.9);margin: 2rem 0.2rem;border-radius: 1.2rem;"
+    class="card">
         <h3 class="card-header">{{client.first_name}}&nbsp;{{client.last_name}}</h5>
             <div class="card-body">
                 <h5 class="card-title">Details</h5>
-                <p class="card-text">Contact: {{client.contact}}&nbsp;&nbsp;|&nbsp;&nbsp;Email: {{client.email}}</p>
+                <p class="card-text" style="font-size: 1.1rem;">Contact: {{client.contact}}&nbsp;&nbsp;|&nbsp;&nbsp;Email: {{client.email}}</p>
             </div>
     </div>
-    {% endfor %}
-<div class="row">
-    <div class="col-md-12">
-        <form action="/schedule" method="POST">
-            {% csrf_token %}
-<div class="row">
-            <div class="col-md-4 mb-3">
-            <label for="country">Client</label>
-            <select name="test" style="margin-bottom : 2rem;" class="custom-select d-block w-100" id="country" required>
+    {% endfor %} 
+    <div class="row">
+        <div class="col-md-12">
+            <form action="/schedule" method="POST">
+                {% csrf_token %}
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                <h5>Client</h5>
+                <select name="test" style="margin-bottom : 2rem;border-radius: 1.2rem;" class="custom-select d-block w-100" id="country"
+                required>
                 <option value="">Choose...</option>
                 {% for client in clients %}
                 <option>{{client.first_name}}&nbsp;{{client.last_name}}</option>
                 {% endfor %}
-            </select>
-            </div>
-            <div class="col-md-4 mb-3">
-                <label for="dtp_input1" class="control-label">Date & Time</label>
-                <div class="input-group date form_datetime" data-link-field="dtp_input1">
-                <input class="form-control" size="16" type="text" value="" id="dtp_input1" name="dateA" readonly>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                </select>
                 </div>
-               <!--  <input type="hidden" id="dtp_input1" value="" /><br /> -->
-                <!----<label for="country">Date</label>
-                <input type="text" class="form-control" name="dateA" placeholder="" value="" required> -->
-            </div>
-            <div class="col-md-4 mb-3">
-               <!--  <label for="country">Time</label>
-                <input type="text" class="form-control" name="timeA" placeholder="" value="" required> -->
-            </div>
-            </div>
-<button type=submit class="btn btn-primary">Schedule an appointment</a>
-        </form>
+                <div class="col-md-4 mb-3">
+                    <h5 for="dtp_input1" class="control-label">Date & Time</h5>
+                    <!-- <label for="dtp_input1" class="control-label">Date & Time</label> -->
+                    <div style="border-radius: 1.2rem;" class="input-group date form_datetime" data-link-field="dtp_input1">
+                    <input class="form-control" size="16" type="text" value="" id="dtp_input1" name="dateA" readonly>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                    </div>
+        
+                </div>
+                </div>
+            <button type=submit class="btn" style="color:#FFFFFF;background-color: rgba(0, 0, 90, 0.6)">Schedule an appointment</a>
+            </form>
+        </div>
+    </div>
 </div>
-</div>
-    <footer class="pt-5 text-muted text-center text-small">
-<p class="mb-1" style="color:#000000">&copy; Patil Firms</p>
-        <ul class="list-inline">
-            <li class="list-inline-item"><a href="/admin" style="color:ghostwhite">Admin Login</a></li>
-            <li class="list-inline-item"><a href="/" style="color:ghostwhite">Submit Client</a></li>
-            <li class="list-inline-item"><a href="/appointments" style="color:ghostwhite">View appointments</a></li>
-        </ul>
-    </footer>
-</div>
-
 <script type="text/javascript" src="{% static 'appstatic/jquery-1.8.3.min.js' %}" charset="UTF-8"></script>
 <script type="text/javascript" src="{% static 'appstatic/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'appstatic/bootstrap-datetimepicker.js' %}" charset="UTF-8"></script>
 <script type="text/javascript">
     $('.form_datetime').datetimepicker({
         //language:  'fr',
-        format : 'dd/MM/yyyy hh:mm a',
+        format: 'dd/MM/yyyy hh:mm a',
         weekStart: 1,
         todayBtn: 1,
         autoclose: 1,
@@ -105,5 +62,4 @@
         showMeridian: 1
     });
 </script>
-</body>
-</html>
+{% endblock %}
