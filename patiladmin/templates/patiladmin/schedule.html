@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="{% static 'appstatic/head.png' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+    crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+    body{
+        background-image: url("{% static 'appstatic/bg.jpg' %}");
+        background-color: #10001F;
+        background-size: cover;
+        background-position: top center;
+        color: rgb(245, 245, 245);
+    }
+
+    .lh-condensed { line-height: 1.25; }
+    input[type="text"], input[type="tel"],input[type="email"],textarea {
+
+    background-color : rgb(230, 230, 230);
+
+    }
+    </style>
+    <title>Patil Firms</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="text-center" style="padding-top: 2rem">
+    <!--    <img class="d-block mx-auto mb-4" src="{% static 'appstatic/head.png' %}"
+            alt="" width="244" height="202"> -->
+        <h1>Appointment Scheduled for {{name}} at {{date}}&nbsp;{{time}}</h1>
+    </div>
+    
+    <footer class="pt-5 text-muted text-center text-small">
+<p class="mb-1" style="color:#000000">&copy; Patil Firms</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="/" style="color:ghostwhite">Submit Client</a></li>
+            <li class="list-inline-item"><a href="/clients" style="color:ghostwhite">View Clients</a></li>
+        </ul>
+    </footer>
+</div>
+
+</body>
+</html>
