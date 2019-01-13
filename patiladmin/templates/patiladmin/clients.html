@@ -10,8 +10,8 @@
     class="card">
         <h3 class="card-header">{{client.first_name}}&nbsp;{{client.last_name}}</h5>
             <div class="card-body">
-                <h5 class="card-title">Details</h5>
-                <p class="card-text" style="font-size: 1.1rem;">Contact: {{client.contact}}&nbsp;&nbsp;|&nbsp;&nbsp;Email: {{client.email}}</p>
+            <h5 class="card-title">Details</h5>
+            <p class="card-text" style="font-size: 1.1rem;">Contact: {{client.contact}}&nbsp;&nbsp;|&nbsp;&nbsp;Email: {{client.email}}</p>
             </div>
     </div>
     {% endfor %} 
@@ -32,7 +32,6 @@
                 </div>
                 <div class="col-md-4 mb-3">
                     <h5 for="dtp_input1" class="control-label">Date & Time</h5>
-                    <!-- <label for="dtp_input1" class="control-label">Date & Time</label> -->
                     <div style="border-radius: 1.2rem;" class="input-group date form_datetime" data-link-field="dtp_input1">
                     <input class="form-control" size="16" type="text" value="" id="dtp_input1" name="dateA" readonly>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>

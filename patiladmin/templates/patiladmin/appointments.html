@@ -7,13 +7,75 @@
     </div>
     {% for appointment in appointments %}
     <div style="background-color: rgb(256, 256, 256);color: rgba(0,0,120,0.9);margin: 2rem 0.2rem;border-radius: 1.2rem;" class="card">
-    <h3 class="card-header">Client: {{appointment.person}}</h5>
-            <div class="card-body">
-            <h5 class="card-title">Appointment Date: {{appointment.dtOfApmt}}&nbsp;&nbsp;|&nbsp;&nbsp;Appointment Time:
-                {{appointment.tmOfApmt}}</h5>
-            <p class="card-text" style="font-size: 1.1rem;">Appointment Scheduled on : {{appointment.schOn}}</p>
+        <h3 class="card-header">Client: {{appointment.person}}</h5>
+        <div class="card-body">
+        <h5 class="card-title">Appointment Date: {{appointment.dtOfApmt}}&nbsp;&nbsp;|&nbsp;&nbsp;Appointment Time:
+            {{appointment.tmOfApmt}}</h5>
+<p class="card-text" style="font-size: 1.1rem;">Appointment ID: <span id="appID{{ forloop.counter }}">{{appointment.id}}</span>
+    | Appointment Scheduled
+    on :
+    {{appointment.schOn}}</p>
+        <button type="button" id="{{ forloop.counter }}"
+            class="btn btn-outline-danger shadow" style="font-size: 1.2rem;border-radius: 1.5rem;">Remove</button>
         </div>
     </div>
     {% endfor %}
+    
+    <!--Confirmation Modal -->
+    <div class="modal fade" id="comfirmModal" tabindex="-1" role="dialog" aria-labelledby="comfirmModalLabel" aria-hidden="true">
+<div class="modal-dialog" style="background-color: rgb(256, 256, 256);color: rgba(0,0,120,0.9);">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="comfirmModalLabel">Are you sure?</h5>
+            </button>
+        </div>
+        <div class="modal-body">
+            This will remove the appointment from the appointment history.
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-outline-info shadow" style="font-size: 1.1rem;border-radius: 1.5rem;"
+            data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-dark shadow" style="font-size: 1.1rem;border-radius: 1.5rem;" id="test">Yes! Remove</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
 </div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js" charset="UTF-8"></script>
+<script>
+    var clicked_id = 0;
+    var csrftoken = getCookie('csrftoken');
+    var rmAppID = 92;
+    $(".btn-outline-danger").bind("click", function() {
+        clicked_id = this.id;
+        rmAppID = $("#appID"+this.id).text()
+        console.log("Clicked ID:" + clicked_id + " Appointment ID: " + rmAppID);
+        $('#comfirmModal').modal('show');
+    });
+    $("#test").click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url: 'appointments/remove',
+            data: {
+                csrfmiddlewaretoken : csrftoken,
+                rmvAppID : rmAppID
+            },
+            success: function (data) {
+                $('#comfirmModal').modal('hide');
+                setTimeout(function(){ window.location.href = "/appointments"; }, 200);
+                }
+            });
+    });
+
+function getCookie(name) {
+var cookieValue = null;
+if (document.cookie && document.cookie != '') {
+var cookies = document.cookie.split(';');
+for (var i = 0; i < cookies.length; i++) { var cookie=jQuery.trim(cookies[i]);  if (cookie.substring(0, name.length + 1)==(name + '=' )) { cookieValue=decodeURIComponent(cookie.substring(name.length
+    + 1)); break; } } } return cookieValue; }
+
+
+</script>
 {% endblock %}

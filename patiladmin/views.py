@@ -2,7 +2,8 @@ import requests
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.mail import send_mail
-from .models import client,appointments
+from .models import client, appointments
+
 def appointment(request):
     allAppointments = appointments.objects.all()
     return render(request, 'patiladmin/appointments.html', {'appointments': allAppointments})
@@ -55,5 +56,10 @@ def submit(request):
     client_data.save()
     return render(request, 'patiladmin/submit.html')
 
-
-
+def removeAppointment(request):
+    #a = appointments.objects.filter(id=5).delete()
+    if request.is_ajax():
+        rmAppID = request.POST.get('rmvAppID')
+        deleteStatus = appointments.objects.filter(id=rmAppID)[0].delete()
+        print(deleteStatus)
+    return HttpResponse(deleteStatus)
