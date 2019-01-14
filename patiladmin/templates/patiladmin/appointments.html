@@ -22,11 +22,11 @@
     {% endfor %}
     
     <!--Confirmation Modal -->
-    <div class="modal fade" id="comfirmModal" tabindex="-1" role="dialog" aria-labelledby="comfirmModalLabel" aria-hidden="true">
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
 <div class="modal-dialog" style="background-color: rgb(256, 256, 256);color: rgba(0,0,120,0.9);">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="comfirmModalLabel">Are you sure?</h5>
+            <h5 class="modal-title" id="confirmModalLabel">Are you sure?</h5>
             </button>
         </div>
         <div class="modal-body">
@@ -35,7 +35,7 @@
         <div class="modal-footer">
         <button type="button" class="btn btn-outline-info shadow" style="font-size: 1.1rem;border-radius: 1.5rem;"
             data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-outline-dark shadow" style="font-size: 1.1rem;border-radius: 1.5rem;" id="test">Yes! Remove</button>
+        <button type="button" class="btn btn-outline-danger shadow" style="font-size: 1.1rem;border-radius: 1.5rem;" id="removeModal">Yes! Remove</button>
         </div>
         </div>
     </div>
@@ -48,12 +48,15 @@
     var csrftoken = getCookie('csrftoken');
     var rmAppID = 92;
     $(".btn-outline-danger").bind("click", function() {
-        clicked_id = this.id;
-        rmAppID = $("#appID"+this.id).text()
-        console.log("Clicked ID:" + clicked_id + " Appointment ID: " + rmAppID);
-        $('#comfirmModal').modal('show');
+        if (this.id != "removeModal"){
+            //alert(this.id)
+            clicked_id = this.id;
+            rmAppID = $("#appID" + this.id).text()
+            console.log("Clicked ID:" + clicked_id + " Appointment ID: " + rmAppID);
+            $('#confirmModal').modal('show');
+        }
     });
-    $("#test").click(function (e) {
+    $("#removeModal").click(function (e) {
         e.preventDefault();
         $.ajax({
             type:'POST',
@@ -63,10 +66,10 @@
                 rmvAppID : rmAppID
             },
             success: function (data) {
-                $('#comfirmModal').modal('hide');
+                $('#confirmModal').modal('hide');
                 setTimeout(function(){ window.location.href = "/appointments"; }, 200);
                 }
-            });
+            }); 
     });
 
 function getCookie(name) {
