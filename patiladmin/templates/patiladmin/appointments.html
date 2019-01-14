@@ -22,19 +22,36 @@
     {% endfor %}
     
     <!--Confirmation Modal -->
-    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
-<div class="modal-dialog" style="background-color: rgb(256, 256, 256);color: rgba(0,0,120,0.9);">
+    <div class="modal fade bd-example-modal-lg" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="background-color: rgb(256, 256, 256);color: rgba(0,0,120,0.9);">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="confirmModalLabel">Are you sure?</h5>
+            <h4 class="modal-title" id="confirmModalLabel">Are you sure?</h4>
             </button>
         </div>
         <div class="modal-body">
-            This will remove the appointment from the appointment history.
+            <p id="confirmMsg">This will remove the selected appointment from the appointment history permanently.<br><br>You will need to provide valid credentials to complete this action!</p>
+            <div class="alert alert-danger" id="errorMsg" role="alert" style="display: none">
+                Incorrect Username/Password entered.
+            </div>
+            <div class="alert alert-success" id="succMsg" role="alert" style="display: none">
+                Appointment Deleted Successfully.
+            </div>
+            <form id="confirmForm">
+                <div class="form-group">
+                    <label for="username" class="col-form-label">Username:</label>
+                    <input type="text" class="form-control" name="uname" id="uJq">
+                </div>
+                <div class="form-group">
+                    <label for="message-text" class="col-form-label">Password:</label>
+                    <input type="password" class="form-control" name="pass" id="pJq"></input>
+                </div>
+            </form>
+        
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-outline-info shadow" style="font-size: 1.1rem;border-radius: 1.5rem;"
-            data-dismiss="modal">Close</button>
+            id="dissmissModal">Close</button>
         <button type="button" class="btn btn-outline-danger shadow" style="font-size: 1.1rem;border-radius: 1.5rem;" id="removeModal">Yes! Remove</button>
         </div>
         </div>
@@ -56,20 +73,41 @@
             $('#confirmModal').modal('show');
         }
     });
+    $("#dissmissModal").bind("click", function (e) {
+            e.preventDefault();
+            $('#confirmModal').modal('hide');
+            setTimeout(function () { window.location.href = "/appointments"; }, 200);
+        });
     $("#removeModal").click(function (e) {
         e.preventDefault();
+        username = $("#uJq").val();
+        password = $("#pJq").val();
         $.ajax({
             type:'POST',
             url: 'appointments/remove',
             data: {
                 csrfmiddlewaretoken : csrftoken,
-                rmvAppID : rmAppID
+                rmvAppID : rmAppID,
+                uName : username,
+                passW: password
             },
             success: function (data) {
-                $('#confirmModal').modal('hide');
-                setTimeout(function(){ window.location.href = "/appointments"; }, 200);
+                if(data == "failure"){
+                    $("#confirmModalLabel").text("Oops! Something went wrong");
+                    $("#confirmMsg").text(" ");
+                    $("#errorMsg").css("display", "none");
+                    setTimeout(function () { $("#errorMsg").css("display", "block"); }, 200);
                 }
-            }); 
+                else{
+                    $("#errorMsg").css("display", "none");
+                    $("#succMsg").css("display", "block");
+                    $("#removeModal").css("display", "none");
+                    $("#confirmForm").css("display", "none");
+                    $("#confirmMsg").text(" ");
+                    $(".modal-header").css("display", "none");
+                }
+                }
+            });
     });
 
 function getCookie(name) {

@@ -2,7 +2,8 @@ import requests
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.mail import send_mail
-from .models import client, appointments
+from .models import client, appointments, AuthUser
+from django.contrib.auth.hashers import check_password
 
 def appointment(request):
     allAppointments = appointments.objects.all()
@@ -57,9 +58,18 @@ def submit(request):
     return render(request, 'patiladmin/submit.html')
 
 def removeAppointment(request):
-    #a = appointments.objects.filter(id=5).delete()
     if request.is_ajax():
+        uName = request.POST.get('uName')
+        passW = request.POST.get('passW')
         rmAppID = request.POST.get('rmvAppID')
-        deleteStatus = appointments.objects.filter(id=rmAppID)[0].delete()
-        print(deleteStatus)
-    return HttpResponse(deleteStatus)
+        try:
+            admin = AuthUser.objects.filter(username=uName)[0]
+            if(check_password(passW, admin.password)):
+                print("Authentication Valid! Deleting Appointment!")
+                deleteStatus = appointments.objects.filter(id=rmAppID)[0].delete()
+                return HttpResponse("success")
+            else:
+                return HttpResponse("failure")
+        except IndexError:
+            return HttpResponse("failure")
+    
