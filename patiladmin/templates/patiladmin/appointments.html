@@ -52,7 +52,8 @@
         <div class="modal-footer">
         <button type="button" class="btn btn-outline-info shadow" style="font-size: 1.1rem;border-radius: 1.5rem;"
             id="dissmissModal">Close</button>
-        <button type="button" class="btn btn-outline-danger shadow" style="font-size: 1.1rem;border-radius: 1.5rem;" id="removeModal">Yes! Remove</button>
+        <button type="button" class="btn btn-outline-danger shadow" style="font-size: 1.1rem;border-radius: 1.5rem;" 
+            id="removeModal">Yes! Remove</button>
         </div>
         </div>
     </div>
@@ -66,10 +67,9 @@
     var rmAppID = 92;
     $(".btn-outline-danger").bind("click", function() {
         if (this.id != "removeModal"){
-            //alert(this.id)
             clicked_id = this.id;
             rmAppID = $("#appID" + this.id).text()
-            console.log("Clicked ID:" + clicked_id + " Appointment ID: " + rmAppID);
+            //console.log("Clicked ID:" + clicked_id + " Appointment ID: " + rmAppID);
             $('#confirmModal').modal('show');
         }
     });
@@ -100,23 +100,31 @@
                 }
                 else{
                     $("#errorMsg").css("display", "none");
-                    $("#succMsg").css("display", "block");
                     $("#removeModal").css("display", "none");
                     $("#confirmForm").css("display", "none");
                     $("#confirmMsg").text(" ");
                     $(".modal-header").css("display", "none");
+                    $("#succMsg").css("display", "block");
                 }
-                }
-            });
+            }
+        });
     });
-
-function getCookie(name) {
-var cookieValue = null;
-if (document.cookie && document.cookie != '') {
-var cookies = document.cookie.split(';');
-for (var i = 0; i < cookies.length; i++) { var cookie=jQuery.trim(cookies[i]);  if (cookie.substring(0, name.length + 1)==(name + '=' )) { cookieValue=decodeURIComponent(cookie.substring(name.length
-    + 1)); break; } } } return cookieValue; }
-
-
+    $('#confirmModal').on('hidden.bs.modal', function () {
+        setTimeout(function () { window.location.href = "/appointments"; }, 200);
+    })
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) { 
+                var cookie=jQuery.trim(cookies[i]);  
+                if (cookie.substring(0, name.length + 1)==(name + '=' )) { 
+                    cookieValue=decodeURIComponent(cookie.substring(name.length+ 1)); 
+                    break; 
+                } 
+            } 
+        } 
+        return cookieValue; 
+    }
 </script>
 {% endblock %}

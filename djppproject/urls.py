@@ -23,12 +23,8 @@ admin.site.index_title = 'Manage Site'
 admin.site.site_title = 'Site Admin'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('patiladmin.urls')),
-    path('submit/', include('patiladmin.urls')),
-    path('clients/', include('patiladmin.urls')),
-    path('schedule/', include('patiladmin.urls')),
-    path('appointments/', include('patiladmin.urls'))
+    path('admin/', admin.site.urls),
 ]
 
 

@@ -4,7 +4,6 @@ from django.shortcuts import render
 from django.core.mail import send_mail
 from .models import client, appointments, AuthUser
 from django.contrib.auth.hashers import check_password
-
 def appointment(request):
     allAppointments = appointments.objects.all()
     return render(request, 'patiladmin/appointments.html', {'appointments': allAppointments})
@@ -35,7 +34,6 @@ def schedule(request):
     print("SMS Status Code " + str(r))
     appointment_data = appointments(person=nameofclient,dtOfApmt=date,tmOfApmt=time)
     appointment_data.save()
-    #return HttpResponse("Appointment Scheduled for " + firstname)
     return render(request, 'patiladmin/schedule.html', {'name': firstname,'date': date,'time':time})
 def clientlist(request):
     clist = client.objects.all()
@@ -56,7 +54,6 @@ def submit(request):
                          zipcode=request.POST["zip"])
     client_data.save()
     return render(request, 'patiladmin/submit.html')
-
 def removeAppointment(request):
     if request.is_ajax():
         uName = request.POST.get('uName')
