@@ -11,7 +11,7 @@
     class="card animated fadeIn">
     <h3 class="card-header" id="cName{{ forloop.counter }}">{{client.first_name}}&nbsp;{{client.last_name}}</h5>
     <div class="card-body">
-        <h5 class="card-title">Purpose of Visit: {{client.pVisit}}</h5>
+        <h5 class="card-title">Purpose of Visit: {{client.pVisit}}&nbsp;&nbsp;|&nbsp;&nbsp; To meet with: {{client.toMeet}}</h5>
         <p class="card-text" style="font-size: 1.1rem;">Contact: <span id="cMobile{{ forloop.counter }}">{{client.contact}}</span>&nbsp;&nbsp;|&nbsp;&nbsp;Email: {{client.email}}</p>
         <button type="button" id="{{ forloop.counter }}"
             class="btn btn-outline-primary shadow cSynopModalTrigger" style="font-size: 1.2rem;border-radius: 1.5rem;">View Case Synopsis</button>
