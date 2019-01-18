@@ -32,11 +32,6 @@
                 </div>
 
                 <div class="mb-3">
-                    <h5>Purpose of Visit</h5>
-                    <input type="text" class="form-control" name="pVisit" placeholder="" value="" required>
-                </div>
-
-                <div class="mb-3">
                     <h5 for="address">Address</h5>
                     <input type="text" class="form-control" name="address" placeholder="E.g. 1034 Model Colony" required>
                 </div>
@@ -52,9 +47,39 @@
                     </div>
                     <div class="col-md-3 mb-3">
                         <h5 for="zip">Pin Code</h5>
-                        <input type="text" class="form-control" name="zip" placeholder="E.g. 411016" required>
+                        <input type="number"  class="form-control" name="zip" placeholder="E.g. 411016" required>
                     </div>
                 </div>
+                
+                <div class="mb-3">
+                    <h5>Purpose of Visit</h5>
+                    <input type="text" class="form-control" name="pVisit" placeholder="" value="" required>
+                </div>
+
+                <div class="mb-3">
+                    <h5>To meet with</h5>
+                    <select class="form-control" name="toMeet" required>
+                            <option value="">Choose...</option>
+                            <option>Adv. Prashant Patil</option>
+                            <option>Adv. Pranav Patil</option>
+                            <option>Adv. Abid Mulani</option>   
+                            <option>Adv. Seoul Shah</option>
+                            <option>Steno Ramesh Taur</option>
+                            <option>clerk</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <h5>How did you hear about us</h5>
+                    <input type="text" class="form-control" name="hAbout" placeholder="Friend, Internet, Newspaper etc" value="" required>
+                </div>
+
+                <div class="mb-3">
+                    <h5>Case Synosis (Optional)</h5>
+                    <textarea type="text" class="form-control" rows=5 name="cSynop" placeholder="Please describe your case in brief over here so that we know" value=""></textarea>  
+                </div>
+                
+                <h5 class="mb-2" style="color: rgba(0,0,80,0.8);font-size: 1rem;">*Disclaimer: Charges will be applicable per conference</h5>
                 <button class="shadow btn btn-lg btn-block" id="formSubmit" type="submit" style="margin-top: 2%;color:#FFFFFF;background-color: rgba(0, 0, 90, 0.6)" >Save</button>
             </form>
         </div>

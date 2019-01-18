@@ -6,11 +6,14 @@ class client(models.Model):
     last_name = models.CharField(max_length=255)
     contact = models.BigIntegerField()
     email = models.CharField(max_length=255)
-    pVisit = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     state = models.CharField(max_length=255)
     zipcode = models.BigIntegerField()
+    pVisit = models.CharField(max_length=255)
+    toMeet = models.CharField(max_length=255)
+    hAbout = models.CharField(max_length=255)
+    caseSynopsis = models.TextField(default="No case data provided by client")
     dateofvisit = models.DateField(default=timezone.now)
 
     def __str__(self):

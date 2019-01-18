@@ -9,23 +9,27 @@
     {% for client in clients %}
 <div style="background-color: rgb(256, 256, 256);color: rgba(0,0,120,0.9);margin: 2rem 0.2rem;border-radius: 1.2rem;"
     class="card animated fadeIn">
-        <h3 class="card-header">{{client.first_name}}&nbsp;{{client.last_name}}</h5>
-            <div class="card-body">
-            <h5 class="card-title">Details</h5>
-            <p class="card-text" style="font-size: 1.1rem;">Contact: {{client.contact}}&nbsp;&nbsp;|&nbsp;&nbsp;Email: {{client.email}}</p>
-            </div>
+    <h3 class="card-header" id="cName{{ forloop.counter }}">{{client.first_name}}&nbsp;{{client.last_name}}</h5>
+    <div class="card-body">
+        <h5 class="card-title">Purpose of Visit: {{client.pVisit}}</h5>
+        <p class="card-text" style="font-size: 1.1rem;">Contact: <span id="cMobile{{ forloop.counter }}">{{client.contact}}</span>&nbsp;&nbsp;|&nbsp;&nbsp;Email: {{client.email}}</p>
+        <button type="button" id="{{ forloop.counter }}"
+            class="btn btn-outline-primary shadow cSynopModalTrigger" style="font-size: 1.2rem;border-radius: 1.5rem;">View Case Synopsis</button>
+        <button type="button" id="{{ forloop.counter }}"
+            class="btn btn-outline-warning shadow cAddrModalTrigger" style="font-size: 1.2rem;border-radius: 1.5rem;">View Client Address</button>
     </div>
+</div>
     {% endfor %} 
     <div class="row">
         <div class="col-md-12">
-            <form action="/schedule" method="POST">
-                {% csrf_token %}
+            <!-- <form action="/schedule" method="POST"> -->
+            <form>
+            {% csrf_token %}
                 <h3 class="mb-3">Meeting Details</h4>
             <div class="row">
                 <div class="col-md-4 mb-3">
                 <h5>Client</h5>
-                <select name="test" style="margin-bottom : 2rem;border-radius: 1.2rem;" class="custom-select d-block w-100" id="country"
-                required>
+                <select name="test" id="selClient" style="margin-bottom : 2rem;border-radius: 1.2rem;" class="custom-select d-block w-100" required>
                 <option value="">Choose...</option>
                 {% for client in clients %}
                 <option>{{client.first_name}}&nbsp;{{client.last_name}}</option>
@@ -33,20 +37,91 @@
                 </select>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <h5 for="dtp_input1" class="control-label">Date & Time</h5>
-                    <div style="border-radius: 1.2rem;" class="input-group date form_datetime" data-link-field="dtp_input1">
-                    <input class="form-control" size="16" type="text" value="" id="dtp_input1" name="dateA" readonly>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                    </div>
+                    <h5>Meeting Place</h5>
+                    <select name="meetP" id="selPlace" style="margin-bottom : 2rem;border-radius: 1.2rem;" class="custom-select d-block w-100" required>
+                        <option>Choose...</option>
+                        <option>Chamber C-14</option>
+                        <option>Office - FC Road</option>
+                    </select>
                 </div>
                 <div class="col-md-4 mb-3">
-                <h5>Meeting Place</h5>
-                <input class="form-control" size="16" type="text" value="Chamber C-14 / Office FC. Road" id="meet" name="placeA" readonly>
+                    <h5>Meeting With</h5>
+                    <select name="meetW" id="selAdv" style="margin-bottom : 2rem;border-radius: 1.2rem;" class="custom-select d-block w-100" required>
+                            <option value="">Choose...</option>
+                            <option>Adv. Prashant Patil</option>
+                            <option>Adv. Pranav Patil</option>
+                            <option>Adv. Abid Mulani</option>
+                            <option>Adv. Seoul Shah</option>
+                            <option>Steno Ramesh Taur</option>
+                            <option>clerk</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                        <h5 for="dtp_input1" class="control-label">Date & Time</h5>
+                        <div style="border-radius: 1.2rem;" class="input-group date form_datetime" data-link-field="dtp_input1">
+                        <input class="form-control" size="16" type="text" value="" id="dtp_input1" name="dateA" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                        </div>
+                    </div>
+            </div>
+            <button id="schMeeting" class="btn" style="color:#FFFFFF;background-color: rgba(0, 0, 90, 0.6)">Schedule Meeting</a>
+            </form>
+        </div>
+    </div>
+    <!--Message Modal -->
+    <div class="modal fade bd-example-modal-lg" id="msgModal" tabindex="-1" role="dialog" aria-labelledby="msgModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="background-color: rgb(256, 256, 256);color: rgba(0,0,120,0.9);">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="msgModalLabel"></h4>
+                    </button>
+                </div>
+                <div class="modal-body" style="display: none;">
+                        <p id="confirmMsg"></p>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-outline-info shadow" style="font-size: 1.1rem;border-radius: 1.5rem;"
+                    id="dissmissModal">Close</button>
                 </div>
             </div>
-            <button type=submit class="btn" style="color:#FFFFFF;background-color: rgba(0, 0, 90, 0.6)">Schedule Meeting</a>
-            </form>
+        </div>
+    </div>
+    <!--Synopsis Modal -->
+    <div class="modal fade bd-example-modal-lg" id="cSynopModal" tabindex="-1" role="dialog" aria-labelledby="cSynopModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="background-color: rgb(256, 256, 256);color: rgba(0,0,120,0.9);">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="cSynopModalLabel">Case Synopsis</h4>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="synopMsg"></p>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-outline-info shadow" style="font-size: 1.1rem;border-radius: 1.5rem;"
+                    id="cSynopDissmissModal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!--Address Modal -->
+    <div class="modal fade bd-example-modal-lg" id="cAddrModal" tabindex="-1" role="dialog" aria-labelledby="cAddrModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="background-color: rgb(256, 256, 256);color: rgba(0,0,120,0.9);">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="cAddrModalLabel">Client Address</h4>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="addrMsg"></p>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-outline-info shadow" style="font-size: 1.1rem;border-radius: 1.5rem;"
+                    id="cAddrDissmissModal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -54,6 +129,7 @@
 <script type="text/javascript" src="{% static 'appstatic/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'appstatic/bootstrap-datetimepicker.js' %}" charset="UTF-8"></script>
 <script type="text/javascript">
+    var csrftoken = getCookie('csrftoken');
     $('.form_datetime').datetimepicker({
         //language:  'fr',
         format: 'dd/MM/yyyy hh:mm a',
@@ -65,5 +141,89 @@
         forceParse: 0,
         showMeridian: 1
     });
+    $("#schMeeting").click(function (e) {
+        e.preventDefault();
+        client = $("#selClient").val();
+        mPlace = $("#selPlace").val();
+        mWith  = $("#selAdv").val();
+        dtTime = $("#dtp_input1").val();
+        $.ajax({
+            type:'POST',
+            url: '/schedule',
+            data: {
+                csrfmiddlewaretoken : csrftoken,
+                test : client,
+                placeA: mPlace,
+                withA: mWith,
+                dateA : dtTime
+            },
+            success: function (data) {
+                $('#msgModal').modal('show');
+                $('#msgModalLabel').text("Meeting Scheduled for " + data.for + " at " + data.date + " " + data.time);
+            }
+        });
+    });
+    $('#msgModal').on('hidden.bs.modal', function () {
+        setTimeout(function () { window.location.href = "/clients"; }, 200);
+    })
+    $(".cSynopModalTrigger").bind("click", function (e) {
+            e.preventDefault();
+            contact = $("#cMobile" + this.id).text()
+            $.ajax({
+            type:'POST',
+            url: '/clients/synopsis',
+            data: {
+                csrfmiddlewaretoken : csrftoken,
+                mobile : contact
+            },
+            success: function (data) {
+                $('#cSynopModal').modal('show');
+                $('#synopMsg').text(data);
+            }
+            }); 
+    });
+    $(".cAddrModalTrigger").bind("click", function (e) {
+            e.preventDefault();
+            contact = $("#cMobile" + this.id).text()
+            $.ajax({
+            type:'POST',
+              url: '/clients/address',
+            data: {
+                csrfmiddlewaretoken : csrftoken,
+                mobile : contact
+            },
+            success: function (data) {
+                $('#cAddrModal').modal('show');
+                $('#addrMsg').text(data);
+            }
+            }); 
+    });
+    $("#dissmissModal").bind("click", function (e) {
+            e.preventDefault();
+            $('#confirmModal').modal('hide');
+            setTimeout(function () { window.location.href = "/clients"; }, 200);
+    });
+    $("#cSynopDissmissModal").bind("click", function (e) {
+            e.preventDefault();
+            $('#cSynopModal').modal('hide');
+    });
+    $("#cAddrDissmissModal").bind("click", function (e) {
+            e.preventDefault();
+            $('#cAddrModal').modal('hide');
+    });
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) { 
+                var cookie=jQuery.trim(cookies[i]);  
+                if (cookie.substring(0, name.length + 1)==(name + '=' )) { 
+                    cookieValue=decodeURIComponent(cookie.substring(name.length+ 1)); 
+                    break; 
+                } 
+            } 
+        } 
+        return cookieValue; 
+    }
 </script>
 {% endblock %}
