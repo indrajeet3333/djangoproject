@@ -1,7 +1,10 @@
 # This code will be used for web scraping with the help of regular expression to extract the mobile number from
 # any website that is given as input
 
-import re,urllib
+from datetime import date
+
+print(date.today())
+""" import re,urllib
 
 try:
     import urllib.request
@@ -26,4 +29,4 @@ for s in websites_split:
     # print(type(text))
     # title = re.findall(r'<title>+.*</title>+',str(text),re.I|re.M)
     phone_number = re.findall(pat,str(text))
-    print(phone_number[0])
+    print(phone_number[0]) """
