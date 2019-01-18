@@ -16,10 +16,6 @@ class clientAdmin(admin.ModelAdmin):
         return ("%s" % (obj.pVisit))
     pVisit.short_description = 'Purpose of Visit'
 
-
-   
-    
-
 admin.site.register(client,clientAdmin)
 admin.site.register(appointments)
 
