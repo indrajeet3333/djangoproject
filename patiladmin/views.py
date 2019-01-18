@@ -29,7 +29,7 @@ def schedule(request):
     time = str(Hr) + ":" + mm + fm
     print(date + " " + time)
     msg = "Hello " + firstname + ". Your appointment with your lawyer is now scheduled for " + \
-        date + " at " + time
+        date + " at " + time + " Place of meeting: " + request.POST["placeA"]
     r = requests.get("http://api.msg91.com/api/sendhttp.php?country=91&sender=TESTIN&route=4&mobiles="+str(contact)+"&authkey=256187AKWh6ZGX9j5c385774&message=" + msg)
     print("SMS Status Code " + str(r))
     appointment_data = appointments(person=nameofclient,dtOfApmt=date,tmOfApmt=time)

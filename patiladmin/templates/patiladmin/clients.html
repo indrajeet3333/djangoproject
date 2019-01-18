@@ -2,12 +2,13 @@
 {% load static %}
 {% block content%}
 <div class="container">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css">
 <div class="text-center" style="padding-top: 2rem;color: rgb(210,0,120)">
         <h1>Client List</h1>
     </div>
     {% for client in clients %}
 <div style="background-color: rgb(256, 256, 256);color: rgba(0,0,120,0.9);margin: 2rem 0.2rem;border-radius: 1.2rem;"
-    class="card">
+    class="card animated fadeIn">
         <h3 class="card-header">{{client.first_name}}&nbsp;{{client.last_name}}</h5>
             <div class="card-body">
             <h5 class="card-title">Details</h5>
@@ -19,6 +20,7 @@
         <div class="col-md-12">
             <form action="/schedule" method="POST">
                 {% csrf_token %}
+                <h3 class="mb-3">Meeting Details</h4>
             <div class="row">
                 <div class="col-md-4 mb-3">
                 <h5>Client</h5>
@@ -37,10 +39,13 @@
                         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                     </div>
-        
                 </div>
+                <div class="col-md-4 mb-3">
+                <h5>Meeting Place</h5>
+                <input class="form-control" size="16" type="text" value="Chamber C-14 / Office FC. Road" id="meet" name="placeA" readonly>
                 </div>
-            <button type=submit class="btn" style="color:#FFFFFF;background-color: rgba(0, 0, 90, 0.6)">Schedule an appointment</a>
+            </div>
+            <button type=submit class="btn" style="color:#FFFFFF;background-color: rgba(0, 0, 90, 0.6)">Schedule Meeting</a>
             </form>
         </div>
     </div>
