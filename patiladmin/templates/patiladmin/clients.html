@@ -29,7 +29,7 @@
 	</div>
 	{% endfor %}
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-12" id="meetDetails" style="display:none;">
 			{% csrf_token %}
 			<h3 class="mb-3">Meeting Details</h4>
 				<div class="alert alert-info" id="errorMsg" role="alert" style="display: none">
@@ -74,9 +74,12 @@
 						 readonly required>
 					</div>
 				</div>
-				<button id="schMeeting" class="btn" style="border-radius: 1.2rem;color:#FFFFFF;background-color: rgba(0, 0, 90, 0.6)">Schedule
-					Meeting</a>
 		</div>
+		<div class="col-md-12">
+			<button id="schMeeting" class="btn" style="width:100%;border-radius: 1.2rem;color:#FFFFFF;background-color: rgba(0, 0, 90, 0.6)">
+				Schedule a Meeting</a>
+		</div>
+
 	</div>
 </div>
 <!--Message Modal -->
@@ -128,7 +131,7 @@
 				<p id="addrMsg"></p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-outline-info shadow" style="font-size: 1.1rem;border-radius: 1.5rem;" id="cAddrDissmissModal">Close</button>
+				<button type="button" class="btn btn-outline-info shadow" style="border-radius: 1.5rem;" id="cAddrDissmissModal">Close</button>
 			</div>
 		</div>
 	</div>
@@ -145,47 +148,52 @@
 	});
 	$("#schMeeting").click(function (e) {
 		e.preventDefault();
-		client = $("#selClient").val();
-		mPlace = $("#selPlace").val();
-		mWith = $("#selAdv").val();
-		dtTime = $("#dtTime").val();
-		// alert(client + " " +
-		// 	mPlace + " " +
-		// 	mWith + " " +
-		// 	dtTime)
-		if (client == "none" || mPlace == "none" || mWith == "none") {
-			$("#errorMsg").css("display", "none");
-			$("#dateErrorMsg").css("display", "none");
-			setTimeout(function () {
-				$("#errorMsg").css("display", "block");
-			}, 200);
-		} else if (!dtTime) {
-			$("#errorMsg").css("display", "none");
-			$("#dateErrorMsg").css("display", "none");
-			setTimeout(function () {
-				$("#dateErrorMsg").css("display", "block");
-			}, 200);
+		var checkDisplay = $("#meetDetails").css("display");
+		if (checkDisplay == "none") {
+			$("#meetDetails").css("display", "block");
 		} else {
-			$("#errorMsg").css("display", "none");
-			$("#dateErrorMsg").css("display", "none");
-			$.ajax({
-				type: 'POST',
-				url: '/schedule',
-				data: {
-					csrfmiddlewaretoken: csrftoken,
-					test: client,
-					placeA: mPlace,
-					withA: mWith,
-					dateA: dtTime
-				},
-				success: function (data) {
-					$("#errorMsg").css("display", "none");
-					$("#dateErrorMsg").css("display", "none");
-					$('#msgModal').modal('show');
-					$('#msgModalLabel').text("Meeting Scheduled for " + data.for+" at " + data.date +
-						" " + data.time);
-				}
-			});
+			client = $("#selClient").val();
+			mPlace = $("#selPlace").val();
+			mWith = $("#selAdv").val();
+			dtTime = $("#dtTime").val();
+			// alert(client + " " +
+			// mPlace + " " +
+			// mWith + " " +
+			// dtTime)
+			if (client == "none" || mPlace == "none" || mWith == "none") {
+				$("#errorMsg").css("display", "none");
+				$("#dateErrorMsg").css("display", "none");
+				setTimeout(function () {
+					$("#errorMsg").css("display", "block");
+				}, 200);
+			} else if (!dtTime) {
+				$("#errorMsg").css("display", "none");
+				$("#dateErrorMsg").css("display", "none");
+				setTimeout(function () {
+					$("#dateErrorMsg").css("display", "block");
+				}, 200);
+			} else {
+				$("#errorMsg").css("display", "none");
+				$("#dateErrorMsg").css("display", "none");
+				$.ajax({
+					type: 'POST',
+					url: '/schedule',
+					data: {
+						csrfmiddlewaretoken: csrftoken,
+						test: client,
+						placeA: mPlace,
+						withA: mWith,
+						dateA: dtTime
+					},
+					success: function (data) {
+						$("#errorMsg").css("display", "none");
+						$("#dateErrorMsg").css("display", "none");
+						$('#msgModal').modal('show');
+						$('#msgModalLabel').text("Meeting Scheduled for " + data.for+" at " + data.date +
+							" " + data.time);
+					}
+				});
+			}
 		}
 
 	});
