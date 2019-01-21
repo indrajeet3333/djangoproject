@@ -2,8 +2,8 @@ import requests
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.core.mail import send_mail
-from .models import client, appointments, AuthUser
 from django.contrib.auth.hashers import check_password
+from .models import client, appointments, AuthUser
 
 
 def index(request):
@@ -16,7 +16,14 @@ def clientlist(request):
 
 
 def appointment(request):
-    allAppointments = appointments.objects.all()
+    def getKey(key):
+        return key.schOn
+
+    appDbData = appointments.objects.all()
+    allAppointments = [app for app in appDbData]
+    allAppointments.sort(key=getKey, reverse=True)
+    for app in allAppointments:
+        print(app.schOn)
     return render(request, 'patiladmin/appointments.html', {'appointments': allAppointments})
 
 
@@ -108,11 +115,11 @@ def schedule(request):
         person=nameofclient, dtOfApmt=date, tmOfApmt=time)
     appointment_data.save()
     '''~~~~~~~~~~~~~~~~ Construct & Send SMS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
-    sms = "Hello " + firstname + ",%0aYour appointment with " + mWith + " is now scheduled for " + \
-        date + " at " + time + " %0aPlace: " + mPlace + \
-        "%0a %0aRegards,%0aAdv. Prashant Patil"
-    r = requests.get("http://api.msg91.com/api/sendhttp.php?country=91&sender=TESTIN&route=4&mobiles=" +
-                     str(contact)+"&authkey=256187AKWh6ZGX9j5c385774&message=" + sms)
-    print("SMS Status Code " + str(r))
+    # sms = "Hello " + firstname + ",%0aYour appointment with " + mWith + " is now scheduled for " + \
+    #     date + " at " + time + " %0aPlace: " + mPlace + \
+    #     "%0a %0aRegards,%0aAdv. Prashant Patil"
+    # r = requests.get("http://api.msg91.com/api/sendhttp.php?country=91&sender=TESTIN&route=4&mobiles=" +
+    #                  str(contact)+"&authkey=256187AKWh6ZGX9j5c385774&message=" + sms)
+    # print("SMS Status Code " + str(r))
     return JsonResponse({'request': 'ok', 'for': nameofclient,
                          'date': date, 'time': time})
