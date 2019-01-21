@@ -11,9 +11,53 @@
 	 crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	<style>
+		/* On screens that are in 320px and 575px */
+		@media screen and (min-width: 320px) and (max-width: 530px) {
+			h3{
+				font-size: 1.6rem;
+			}
+			h5{
+				font-size: 1.3rem;
+			}
+			p{
+				font-size: 1rem;
+			}
+			.btn{
+				margin-bottom: 0.9rem;
+				margin-top: 0.9rem;
+			}
+		}
+		/* On screens that are in 575px and 768px */
+		@media screen and (min-width: 530px) and (max-width: 768px) {
+			h3{
+				font-size: 1.7rem;
+			}
+			h5{
+				font-size: 1.5rem;
+			}
+			p{
+				font-size: 1.1rem;
+			}
+			.btn{
+				font-size: 1rem;
+				margin-bottom: 0.9rem;
+				margin-top: 0.9rem;
+			}
+		}
+		/* On screens that are 768px or more */
+		@media screen and (min-width: 768px) {
+			p{
+				font-size: 1.2rem;
+			}
+			.btn{
+				font-size: 1.2rem;
+				margin-bottom: 0.9rem;
+				margin-top: 0.9rem;
+			}
+		}
+
 		body{
         background-image: url("{% static 'appstatic/bg.jpg' %}");
-        background-color: #10001F;
         background-size: cover;
         background-position: top center;
         color: rgb(245, 245, 245);
@@ -29,15 +73,15 @@
 	<footer class="pt-5 text-muted text-center">
 		<ul class="list-inline">
 			<li class="list-inline-item"><a href="/" style="color:ghostwhite"><button type="button" class="btn btn-outline-light shadow"
-					 style="font-size: 1.3rem;border-radius: 1.5rem;">Home</button></a></li>
+					 style="border-radius: 1.5rem;">Home</button></a></li>
 			<li class="list-inline-item"><a href="/admin" style="color:ghostwhite"><button type="button" class="btn btn-outline-light shadow"
-					 style="font-size: 1.3rem;border-radius: 1.5rem;">Admin</button></a></li>
+					 style="border-radius: 1.5rem;">Admin</button></a></li>
 			<li class="list-inline-item"><a href="/clients" style="color:ghostwhite"><button type="button" class="btn btn-outline-light shadow"
-					 style="font-size: 1.3rem;border-radius: 1.5rem;">Clients</button></a></li>
+					 style="border-radius: 1.5rem;">Clients</button></a></li>
 			<li class="list-inline-item"><a href="/appointments" style="color:ghostwhite"><button type="button" class="btn btn-outline-light shadow"
-					 style="font-size: 1.3rem;border-radius: 1.5rem;">Appointments</button></a></li>
+					 style="border-radius: 1.5rem;">Appointments</button></a></li>
 		</ul>
-		<h5 class="mb-2" style="color: rgba(0,0,80,0.8)">Contact: +91-9623333300 | Email: adv.pranavpatil@gmail.com</h5>
+		<h5 class="mb-2" style="color: rgb(0,0,0)">Contact: +91-9623333300 | Email: adv.pranavpatil@gmail.com</h5>
 	</footer>
 </body>
 

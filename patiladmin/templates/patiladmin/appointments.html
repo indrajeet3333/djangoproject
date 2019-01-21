@@ -11,11 +11,15 @@
 	 class="card animated fadeIn">
 		<h3 class="card-header">Client: {{appointment.person}}</h5>
 			<div class="card-body">
-				<h5 class="card-title">Appointment Date: {{appointment.dtOfApmt}}&nbsp;&nbsp;|&nbsp;&nbsp;Appointment
-					Time: {{appointment.tmOfApmt}}</h5>
-				<p class="card-text" style="font-size: 1.1rem;">Appointment ID: <span id="appID{{ forloop.counter }}">{{appointment.id}}</span>
-					| Appointment Scheduled on : {{appointment.schOn}}</p>
-				<button type="button" id="{{ forloop.counter }}" class="btn btn-outline-danger shadow" style="font-size: 1.2rem;border-radius: 1.5rem;">Remove</button>
+				<div class="side-head list-inline">
+					<h5 class="card-title list-inline-item">Appointment Date: {{appointment.dtOfApmt}}&nbsp;&nbsp;|</h5>
+					<h5 class="card-title list-inline-item">Appointment Time: {{appointment.tmOfApmt}}</h5>
+				</div>
+				<div class="side-p list-inline">
+					<p class="card-text list-inline-item">Appointment ID: <span id="appID{{ forloop.counter }}">{{appointment.id}}</span>&nbsp;&nbsp;|</p>
+					<p class="card-text list-inline-item">Appointment Scheduled on : {{appointment.schOn}}</p>
+				</div>
+				<button type="button" id="{{ forloop.counter }}" class="btn btn-outline-danger shadow" style="border-radius: 1.5rem;">Remove</button>
 			</div>
 	</div>
 	{% endfor %}

@@ -13,13 +13,17 @@
 	 class="card animated fadeIn">
 		<h3 class="card-header" id="cName{{ forloop.counter }}">{{client.first_name}}&nbsp;{{client.last_name}}</h5>
 			<div class="card-body">
-				<h5 class="card-title">Purpose of Visit: {{client.pVisit}}&nbsp;&nbsp;|&nbsp;&nbsp; To meet with:
-					{{client.toMeet}}</h5>
-				<p class="card-text" style="font-size: 1.1rem;">Contact: <span id="cMobile{{ forloop.counter }}">{{client.contact}}</span>&nbsp;&nbsp;|&nbsp;&nbsp;Email:
-					{{client.email}}</p>
-				<button type="button" id="{{ forloop.counter }}" class="btn btn-outline-primary shadow cSynopModalTrigger" style="font-size: 1.2rem;border-radius: 1.5rem;">View
+				<div class="side-head list-inline">
+					<h5 class="card-title list-inline-item">Purpose of Visit: {{client.pVisit}}&nbsp;&nbsp;|</h5>
+					<h5 class="card-title list-inline-item">To meet with: {{client.toMeet}}</h5>
+				</div>
+				<div class="side-p list-inline">
+					<p class="card-text list-inline-item">Contact: <span id="cMobile{{ forloop.counter }}">{{client.contact}}</span>&nbsp;&nbsp;|</p>
+					<p class="card-text list-inline-item">Email: {{client.email}}</p>
+				</div>
+				<button type="button" id="{{ forloop.counter }}" class="btn btn-outline-primary shadow cSynopModalTrigger" style="border-radius: 1.5rem;">View
 					Case Synopsis</button>
-				<button type="button" id="{{ forloop.counter }}" class="btn btn-outline-warning shadow cAddrModalTrigger" style="font-size: 1.2rem;border-radius: 1.5rem;">View
+				<button type="button" id="{{ forloop.counter }}" class="btn btn-outline-warning shadow cAddrModalTrigger" style="border-radius: 1.5rem;">View
 					Client Address</button>
 			</div>
 	</div>
@@ -28,11 +32,17 @@
 		<div class="col-md-12">
 			{% csrf_token %}
 			<h3 class="mb-3">Meeting Details</h4>
+				<div class="alert alert-info" id="errorMsg" role="alert" style="display: none">
+					Please choose the correct values for Client, Place and Advocate
+				</div>
+				<div class="alert alert-info" id="dateErrorMsg" role="alert" style="display: none">
+					Can't set a meeting without knowing the date and time, Can you?
+				</div>
 				<div class="row">
 					<div class="col-md-4 mb-3">
 						<h5>Client</h5>
-						<select name="test" id="selClient" style="border-radius: 1.2rem;" class="form-control" required>
-							<option value="">Choose...</option>
+						<select name="test" id="selClient" style="border-radius: 1.2rem;" class="form-control">
+							<option value="none">Choose...</option>
 							{% for client in clients %}
 							<option>{{client.first_name}}&nbsp;{{client.last_name}}</option>
 							{% endfor %}
@@ -40,16 +50,16 @@
 					</div>
 					<div class="col-md-4 mb-3">
 						<h5>Meeting Place</h5>
-						<select name="meetP" id="selPlace" style="border-radius: 1.2rem;" class="form-control" required>
-							<option>Choose...</option>
+						<select name="meetP" id="selPlace" style="border-radius: 1.2rem;" class="form-control">
+							<option value="none">Choose...</option>
 							<option>Chamber C-14</option>
 							<option>Office - FC Road</option>
 						</select>
 					</div>
 					<div class="col-md-4 mb-3">
 						<h5>Meeting With</h5>
-						<select name="meetW" id="selAdv" style="border-radius: 1.2rem;" class="form-control" required>
-							<option value="">Choose...</option>
+						<select name="meetW" id="selAdv" style="border-radius: 1.2rem;" class="form-control">
+							<option value="none">Choose...</option>
 							<option>Adv. Prashant Patil</option>
 							<option>Adv. Pranav Patil</option>
 							<option>Adv. Abid Mulani</option>
@@ -60,10 +70,11 @@
 					</div>
 					<div class="col-md-4 mb-3">
 						<h5 class="control-label">Date & Time</h5>
-						<input class="form-control" value="" id="dtTime" name="dateA" style="border-radius: 1.2rem;" readonly>
+						<input class="form-control" placeholder="Select Date.." id="dtTime" name="dateA" style="border-radius: 1.2rem;"
+						 readonly required>
 					</div>
 				</div>
-				<button id="schMeeting" class="btn" style="color:#FFFFFF;background-color: rgba(0, 0, 90, 0.6)">Schedule
+				<button id="schMeeting" class="btn" style="border-radius: 1.2rem;color:#FFFFFF;background-color: rgba(0, 0, 90, 0.6)">Schedule
 					Meeting</a>
 		</div>
 	</div>
@@ -128,8 +139,9 @@
 	var csrftoken = getCookie('csrftoken');
 	flatpickr("#dtTime", {
 		enableTime: true,
-		dateFormat: "J M Y at h:i K"
-
+		dateFormat: "J M Y at h:i K",
+		minDate: "today",
+		defaultTime: "10:30"
 	});
 	$("#schMeeting").click(function (e) {
 		e.preventDefault();
@@ -137,22 +149,45 @@
 		mPlace = $("#selPlace").val();
 		mWith = $("#selAdv").val();
 		dtTime = $("#dtTime").val();
-		$.ajax({
-			type: 'POST',
-			url: '/schedule',
-			data: {
-				csrfmiddlewaretoken: csrftoken,
-				test: client,
-				placeA: mPlace,
-				withA: mWith,
-				dateA: dtTime
-			},
-			success: function (data) {
-				$('#msgModal').modal('show');
-				$('#msgModalLabel').text("Meeting Scheduled for " + data.for+" at " + data.date +
-					" " + data.time);
-			}
-		});
+		// alert(client + " " +
+		// 	mPlace + " " +
+		// 	mWith + " " +
+		// 	dtTime)
+		if (client == "none" || mPlace == "none" || mWith == "none") {
+			$("#errorMsg").css("display", "none");
+			$("#dateErrorMsg").css("display", "none");
+			setTimeout(function () {
+				$("#errorMsg").css("display", "block");
+			}, 200);
+		} else if (!dtTime) {
+			$("#errorMsg").css("display", "none");
+			$("#dateErrorMsg").css("display", "none");
+			setTimeout(function () {
+				$("#dateErrorMsg").css("display", "block");
+			}, 200);
+		} else {
+			$("#errorMsg").css("display", "none");
+			$("#dateErrorMsg").css("display", "none");
+			$.ajax({
+				type: 'POST',
+				url: '/schedule',
+				data: {
+					csrfmiddlewaretoken: csrftoken,
+					test: client,
+					placeA: mPlace,
+					withA: mWith,
+					dateA: dtTime
+				},
+				success: function (data) {
+					$("#errorMsg").css("display", "none");
+					$("#dateErrorMsg").css("display", "none");
+					$('#msgModal').modal('show');
+					$('#msgModalLabel').text("Meeting Scheduled for " + data.for+" at " + data.date +
+						" " + data.time);
+				}
+			});
+		}
+
 	});
 	$('#msgModal').on('hidden.bs.modal', function () {
 		setTimeout(function () {
