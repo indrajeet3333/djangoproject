@@ -26,5 +26,3 @@ urlpatterns = [
     path('', include('patiladmin.urls')),
     path('admin/', admin.site.urls),
 ]
-
-

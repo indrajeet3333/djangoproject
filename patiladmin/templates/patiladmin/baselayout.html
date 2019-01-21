@@ -1,45 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/png" href="{% static 'appstatic/head.png' %}" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-    crossorigin="anonymous">
-    <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> -->
-    <style>
-    body{
+	{% load static %}
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" type="image/png" href="{% static 'appstatic/head.png' %}" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	 crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<style>
+		body{
         background-image: url("{% static 'appstatic/bg.jpg' %}");
         background-color: #10001F;
         background-size: cover;
         background-position: top center;
         color: rgb(245, 245, 245);
         font-family: 'Open Sans', sans-serif;
-    }
-
-    .lh-condensed { line-height: 1.25; }
-    input[type="text"], input[type="tel"],input[type="email"],textarea {
-
-    background-color : rgb(230, 230, 230);
-
-    }
+    	}
     </style>
-    <title>Patil Firms</title>
+	<title>Patil Firms</title>
 </head>
+
 <body>
-{% block content%}
-{% endblock %}
-<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-<footer class="pt-5 text-muted text-center">
-    <ul class="list-inline">
-        <li class="list-inline-item"><a href="/" style="color:ghostwhite"><button type="button" class="btn btn-outline-light shadow" style="font-size: 1.3rem;border-radius: 1.5rem;">Home</button></a></li>
-        <li class="list-inline-item"><a href="/admin" style="color:ghostwhite"><button type="button" class="btn btn-outline-light shadow" style="font-size: 1.3rem;border-radius: 1.5rem;">Admin</button></a></li>
-        <li class="list-inline-item"><a href="/clients" style="color:ghostwhite"><button type="button" class="btn btn-outline-light shadow"style="font-size: 1.3rem;border-radius: 1.5rem;">Clients</button></a></li>
-        <li class="list-inline-item"><a href="/appointments" style="color:ghostwhite"><button type="button" class="btn btn-outline-light shadow" style="font-size: 1.3rem;border-radius: 1.5rem;">Appointments</button></a></li>
-    </ul>
-    <h5 class="mb-2" style="color: rgba(0,0,80,0.8)">Contact: +91-9623333300 | Email: adv.pranavpatil@gmail.com</h5>
-</footer>
+	{% block content%}
+	{% endblock %}
+
+	<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+	<footer class="pt-5 text-muted text-center">
+		<ul class="list-inline">
+			<li class="list-inline-item"><a href="/" style="color:ghostwhite"><button type="button" class="btn btn-outline-light shadow"
+					 style="font-size: 1.3rem;border-radius: 1.5rem;">Home</button></a></li>
+			<li class="list-inline-item"><a href="/admin" style="color:ghostwhite"><button type="button" class="btn btn-outline-light shadow"
+					 style="font-size: 1.3rem;border-radius: 1.5rem;">Admin</button></a></li>
+			<li class="list-inline-item"><a href="/clients" style="color:ghostwhite"><button type="button" class="btn btn-outline-light shadow"
+					 style="font-size: 1.3rem;border-radius: 1.5rem;">Clients</button></a></li>
+			<li class="list-inline-item"><a href="/appointments" style="color:ghostwhite"><button type="button" class="btn btn-outline-light shadow"
+					 style="font-size: 1.3rem;border-radius: 1.5rem;">Appointments</button></a></li>
+		</ul>
+		<h5 class="mb-2" style="color: rgba(0,0,80,0.8)">Contact: +91-9623333300 | Email: adv.pranavpatil@gmail.com</h5>
+	</footer>
 </body>
+
 </html>

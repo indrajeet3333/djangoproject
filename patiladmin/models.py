@@ -1,7 +1,9 @@
 from django.db import models
 from django.utils import timezone
-from datetime import date
+#from datetime import date
 # Create your models here.
+
+
 class client(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
@@ -15,7 +17,7 @@ class client(models.Model):
     toMeet = models.CharField(max_length=255)
     hAbout = models.CharField(max_length=255)
     caseSynopsis = models.TextField(default="No case data provided by client")
-    dateofvisit = models.DateField(default=date.today())
+    dateofvisit = models.DateField(default=timezone.now)
 
     def __str__(self):
         return (self.first_name + " " + self.last_name)
@@ -26,11 +28,13 @@ class appointments(models.Model):
     dtOfApmt = models.CharField(max_length=255)
     tmOfApmt = models.CharField(max_length=255)
     schOn = models.DateTimeField(default=timezone.now, blank=True)
+
     class Meta:
         verbose_name_plural = "Appointments"
+
     def __str__(self):
         return (self.person)
-    
+
 
 class AuthUser(models.Model):
     id = models.IntegerField(primary_key=True)  # AutoField?
