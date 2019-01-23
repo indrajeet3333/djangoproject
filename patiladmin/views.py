@@ -117,16 +117,16 @@ def schedule(request):
         person=nameofclient, dtOfApmt=date, tmOfApmt=time)
     appointment_data.save()
     '''~~~~~~~~~~~~~~~~ Construct & Send Email ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
-    email_subject = 'Lawyer: Your is meeting scheduled for ' + date + " at " + time
-    email_body = "<h4>Hello " + firstname + ",<br>Your meeting with " + mWith + " is now scheduled for " + \
-        date + " at " + time + "<br>Place: " + mPlace + \
-        "<br><br>Regards,<br>Adv. Prashant Patil</h4>"
-    html_email = render_to_string('patiladmin/email_template.html', {
-                                  'firstname': firstname, 'mWith': mWith, 'mPlace': mPlace, 'date': date, 'time': time})
-    email_to = client.objects.filter(first_name=firstname)[0].email
-    emailResponse = send_mail(email_subject, '', 'Lawyer',
-                              [email_to], fail_silently=False, html_message=html_email)
-    print("Number of Emails sent : " + str(emailResponse))
+    # email_subject = 'Lawyer: Your is meeting scheduled for ' + date + " at " + time
+    # email_body = "<h4>Hello " + firstname + ",<br>Your meeting with " + mWith + " is now scheduled for " + \
+    #     date + " at " + time + "<br>Place: " + mPlace + \
+    #     "<br><br>Regards,<br>Adv. Prashant Patil</h4>"
+    # html_email = render_to_string('patiladmin/email_template.html', {
+    #                               'firstname': firstname, 'mWith': mWith, 'mPlace': mPlace, 'date': date, 'time': time})
+    # email_to = client.objects.filter(first_name=firstname)[0].email
+    # emailResponse = send_mail(email_subject, '', 'Lawyer',
+    #                           [email_to], fail_silently=False, html_message=html_email)
+    # print("Number of Emails sent : " + str(emailResponse))
     '''~~~~~~~~~~~~~~~~ Construct & Send SMS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
     sms = "Hello " + firstname + ",%0aYour meeting with " + mWith + " is now scheduled for " + \
         date + " at " + time + " %0aPlace: " + mPlace + \
