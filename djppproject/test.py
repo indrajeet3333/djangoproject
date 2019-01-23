@@ -2,8 +2,11 @@
 # any website that is given as input
 
 from datetime import date
+import os
 
 print(date.today())
+
+print(os.environ['EMAIL_HOST_PASSWORD'])
 """ import re,urllib
 
 try:
@@ -13,7 +16,7 @@ except:
 
 websites_split = 'unt'.split()
 # Asking user to enter the website from which user wants to extract the phone number from...
-# websites_name = str(input("Enter the websites name [For example, msn google yahoo]:")) 
+# websites_name = str(input("Enter the websites name [For example, msn google yahoo]:"))
 # websites_split = websites_name.split()
 # regex expression
 pat = re.compile(r'\d{1,3}\-\d{1,3}\-\d{1,4}',re.I|re.M)

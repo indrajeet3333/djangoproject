@@ -76,9 +76,16 @@
 				</div>
 		</div>
 		<div class="col-md-12">
-			<button id="schMeeting" class="btn" style="width:100%;border-radius: 1.2rem;color:#FFFFFF;background-color: rgba(0, 0, 90, 0.6)">
-				Schedule a Meeting</a>
+			<button id="schMeeting" class="btn text-center" style="width:100%;border-radius: 1.2rem;color:#FFFFFF;background-color: rgba(0, 0, 90, 0.6)">
+				<span id="buttonText">Schedule a Meeting</span>
+			</button>
+			<button id="spoofButton" class="btn text-center" style="display:none;width:100%;border-radius: 1.2rem;color:#FFFFFF;background-color: rgba(0, 0, 90, 0.6)">
+				Scheduling your meeting...Hold on....
+				<span id="loadingSpinner" class="spinner-border text-light" role="status"></span>
+				<span class="sr-only">Loading... </span>
+			</button>
 		</div>
+
 
 	</div>
 </div>
@@ -156,10 +163,8 @@
 			mPlace = $("#selPlace").val();
 			mWith = $("#selAdv").val();
 			dtTime = $("#dtTime").val();
-			// alert(client + " " +
-			// mPlace + " " +
-			// mWith + " " +
-			// dtTime)
+			$("#schMeeting").css('display', 'none')
+			$("#spoofButton").css('display', 'block')
 			if (client == "none" || mPlace == "none" || mWith == "none") {
 				$("#errorMsg").css("display", "none");
 				$("#dateErrorMsg").css("display", "none");
@@ -186,6 +191,9 @@
 						dateA: dtTime
 					},
 					success: function (data) {
+						$("#spoofButton").css('display', 'none')
+						$("#buttonText").text('Meeting Scheduled')
+						$("#schMeeting").css('display', 'block')
 						$("#errorMsg").css("display", "none");
 						$("#dateErrorMsg").css("display", "none");
 						$('#msgModal').modal('show');
