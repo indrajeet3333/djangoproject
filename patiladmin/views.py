@@ -131,6 +131,8 @@ def schedule(request):
     sms = "Hello " + firstname + ",%0aYour meeting with " + mWith + " is now scheduled for " + \
         date + " at " + time + " %0aPlace: " + mPlace + \
         "%0a %0aRegards,%0aAdv. Prashant Patil"
+    print("http://api.msg91.com/api/sendhttp.php?country=91&sender=TESTIN&route=4&mobiles=" +
+          str(contact)+"&authkey=256187AKWh6ZGX9j5c385774&message=")
     r = requests.get("http://api.msg91.com/api/sendhttp.php?country=91&sender=TESTIN&route=4&mobiles=" +
                      str(contact)+"&authkey=256187AKWh6ZGX9j5c385774&message=" + sms)
     print("Sms Status Code " + str(r))
